@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        justify-content: center;
+        text-align: center;
+    }
+    .container{
+        background-color: white;
+        display: inline-block;
+        justify-content: center;
+        text-align: center;
+        border-radius: 0.5rem;
+        border-color: black;
+
+    }
+    .container button{
+        border-radius: 0.5rem;
+        background-color: black;
+        color:white;
+       
+    }
+</style>
+<body>
+    <div class="container">
+        <h6 id="h6">#ffff</h6>
+        <button id="btn">click me</button>
+    </div>
+</body>
+<script>
+  const btn=  document.getElementById('btn').addEventListener('click',getcolour);
+        function getcolour(){
+        const rannum=Math.floor(Math.random()*87654321);
+        const bkc="#"+rannum
+        document.getElementById('h6').innerText=bkc;
+         document.body.style.backgroundColor=bkc;
+    }
+</script>
+</html>
