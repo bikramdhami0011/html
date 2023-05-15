@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { background-color: rgb(99, 178, 243);
+        }
+        #box{
+            display: grid;
+            justify-content: center;
+    
+        }
+  #section{
+     height: 200px;
+     width: 300px;
+     border: 4px black;
+     border-radius: 0.5rem;
+     background-color: aliceblue;
+     
+  }
+  .sec button{
+     width: 290px;
+     text-align: center;
+     color: #dbd5d5;
+     margin-left: 5px;
+     margin-right: 5px;
+     background-color: blue;
+     border-radius: 0.5rem;
+     border-color: black;
+  }
+     
+    </style>
+</head>
+<body class="body">
+<div  id="box">
+    <h1> This is Quiz app </h1>
+<section id="section" class=" sec">
+    <h1 id="h1"></h1>
+    <div> 
+       <input type="radio" id="first" class="class"  name="answer"  value="a"> 
+       <label for="first"></label>
+    </div>
+    <div> 
+        <input type="radio" id="second" class="class" name="answer"  value="b"> 
+        <label for="second"></label>
+     </div>
+     <div> 
+        <input type="radio" id="third" class="class"  name="answer" value="c"> 
+        <label for="third"></label>
+     </div>
+     <div> 
+        <input type="radio" id="fourth" class="class"  name="answer" value="d"> 
+        <label for="fourth"></label>
+     </div>
+     <button id="submit" onclick="submit()">submit</button>
+</section>
+</div>
+    
+</body>
+<script>
+const quiz=[{
+    question:"where is buddha born",
+    a:"lumbini nepal",
+    b:"kathmandu nepal",
+    c:"pokhara nepal",
+    d:"karnali nepal",
+    correct:"a",
+
+},
+{
+    question:"where is buddha born2",
+    a:"kathmandu nepal",
+    b:"lumbini nepal",
+    c:"pokhara nepal",
+    d:"karnali nepal",
+    correct:"b",
+
+},
+{
+    question:"where is buddha born3",
+    a:"pokhara nepal",
+    b:"kathmandu nepal",
+    c:"lumbini nepal",
+    d:"karnali nepal",
+    correct:"c",
+
+},{
+    question:"where is buddha born4",
+    a:"karnali nepal",
+    b:"kathmandu nepal",
+    c:"pokhara nepal",
+    d:"lumbini nepal",
+    correct:"d",
+
+},];
+index=0;
+right=0;
+wrong=0;
+total=quiz.length;
+function loadquestion(){
+    if(index==total){
+        return quizend()
+    }
+    reset()
+document.getElementById('h1').innerHTML=quiz[index].question;
+const inputs=document.querySelectorAll(".class")
+inputs[0].nextElementSibling.innerHTML=quiz[index].a;
+inputs[1].nextElementSibling.innerHTML=quiz[index].b;
+inputs[2].nextElementSibling.innerHTML=quiz[index].c;
+inputs[3].nextElementSibling.innerHTML=quiz[index].d;
+}
+
+
+ function submit(){
+     userclick()
+    console.log(ans,quiz[index].correct)
+    if(ans==quiz[index].correct){
+        right++;
+    }else{
+        wrong++;
+    }
+    index++
+    loadquestion()
+ }
+ function userclick(){
+  inputs= document.querySelectorAll(".class");
+   inputs.forEach(input=> {
+    if(input.checked){
+      console.log(input.value)
+      ans=input.value
+    }
+    });
+    return ans;
+}
+function reset(){
+    inputs= document.querySelectorAll(".class");
+    inputs.forEach(input => {
+        if(input){
+            input.checked=false;
+        }
+        
+    });
+}
+function quizend(){
+    document.getElementById('section').innerHTML=`result is ${right}/${total} 
+       <h1> thanks for playing this quiz`
+}
+loadquestion()
+
+
+</script>
+</html>
