@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+   body{
+      background-color: rgb(10, 221, 46);
+      display: flex;
+      justify-content: center;
+   }
+#main{
+  
+   text-align: center;
+   background-color: rgb(3, 95, 30);
+}
+#main img{
+   height: 100px;
+   width: 150px;
+   border-radius: 0.5rem;
+}
+#div{
+   
+    background-color: #11f857;
+    border-radius: 5px;
+    display: inline-block;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+
+}
+
+</style>
+<body>  
+   <div><form id="form" onsubmit="return submitform()">
+   <input type="text" id="search"></form>
+      <main id="main">
+         
+     
+      </main>
+    
+   </div>
+ 
+</body>
+<script>
+const APIURL = "https://api.github.com/users/";
+const main=document.querySelector("#main")
+ const getuser=async(username)=>{
+   const respon=await fetch(APIURL+username)
+   const data=await respon.json()
+  const card=`
+  <div>
+         <img src="${data.avatar_url}" >
+         <p>${data.bio}</p>
+         <p> ${data.name}</p>
+   </div> 
+   <div id="div">
+      
+    </div>
+   `
+   main.innerHTML=card
+   getrepos(username)
+ }
+ const getrepos=async(user)=>{
+   var div=document.querySelector("#div")
+   const respon =await fetch(APIURL+user+"/repos")
+   const data=await respon.json()
+   data.forEach(element => {
+      console.log(element)
+      box=document.createElement("a")
+      box.classList.add("repos")
+      box.href=element.html_url
+      box.innerText=element.name
+      box.target="_blank"
+      div.appendChild(box)
+
+   });
+
+ }
+ const search=document.querySelector("#search")
+ function submitform(){
+   if(search.value!=""){
+      getuser(search.value)
+      search.value=""
+   return false
+   }}
+ getuser("bikramdhami0011")
+
+
+
+ </script>
+</html>
