@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>  
+     <input type="search" id="search">
+    <div id="image">
+       <!-- <div>
+        <img src=""  height="100px" width="200px">
+        <p>described</p>
+       </div> -->
+      
+
+    </div>
+    <button id="button" onclick="loadmore()">loadmore</button>
+ 
+</body>
+<script>
+// const APIURL =
+
+//     "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=04c35731a5ee918f014970082a0088b1&page=1";
+// const IMGPATH = "https://image.tmdb.org/t/p/w1280";
+// const SEARCHAPI =
+//     "https://api.themoviedb.org/3/search/movie?&api_key=04c35731a5ee918f014970082a0088b1&query=";
+var API_KEY="pMBOSSKjqjC7MAwyxqWfNefDMLpcrCSHel2qcGMvxKAzBpddnBUBF91h"
+
+var imagebox=document.querySelector("#image")
+var perpage=15
+var curpage=1
+ const getimage=async(apiURL)=>{
+    const respon=await fetch(apiURL,{headers:{Authorization:API_KEY}}
+        
+   )
+    const data=await respon.json()
+    showimage(data.photos)
+ }
+ getimage(`https://api.pexels.com/v1/curated?page=${curpage}per_page=${perpage}`)
+
+ const showimage=(image)=>{
+    imagebox.innerHTML=""
+    console.log(image)
+     image.forEach(item => {
+        console.log(item)
+        const box=document.createElement("div")
+        box.classList.add("box")
+        box.innerHTML=`        
+    
+           <img src="${item.src.medium}" height="100px" width="150px" alt="" srcset="" >
+           <span>${item.photographer}</span>
+    
+        `;
+       imagebox.appendChild(box)
+        
+     });
+ }
+ document.querySelector("#search").addEventListener("keyup",function (event){
+    if(event.target.value !=""){
+     searchterm=event.target.value
+      getimage(`https://api.pexels.com/v1/search?query=${searchterm}&page=${curpage}&per_page=${perpage}`)
+    }else{
+        getimage(`https://api.pexels.com/v1/curated?page=${curpage}per_page=${perpage}`)
+    }
+ })
+function loadmore(){
+   curpage++;
+    let apiURL=`https://api.pexels.com/v1/curated?page=${curpage}per_page=${perpage}`;
+    apiURL= searchterm? `https://api.pexels.com/v1/search?query=${searchterm}&page=${curpage}&per_page=${perpage}`:apiURL;
+    
+      getimage(apiURL)
+}
+
+ 
+
+ </script>
+</html>
