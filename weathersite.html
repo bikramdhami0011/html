@@ -53,16 +53,14 @@ const getweather=async(city)=>{
  
  document.querySelector("#form").addEventListener("submit",submit)
   function submit(event) {
-//    console.log(event)
-//    console.log(search.value)
-//  if(search.value!="") {
-//    getweather(search.value)
-//    search.value=""
-//  }
-//   event.preventDefault();
-  this.event=search.value
-   
-   console.log(event.target.value)
+   console.log(event)
+   console.log(search.value)
+ if(search.value!="") {
+   getweather(search.value)
+   search.value=""
+ }
+  event.preventDefault();
+
   
   }
  
